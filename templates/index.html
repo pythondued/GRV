@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your GitHub Repositories</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="navbar">
+        <a class="logo" href="/">📁 GitHub Viewer</a>
+        <div class="nav-actions">
+            <label class="toggle-switch">
+                <input type="checkbox" id="themeToggle"> 🌙
+            </label>
+        </div>
+    </div>
+
+    <script>
+        const toggle = document.getElementById('themeToggle');
+        const darkSetting = localStorage.getItem('darkMode');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (darkSetting === 'true' || (darkSetting === null && prefersDark)) {
+            document.body.classList.add('dark-mode');
+            toggle.checked = true;
+        }
+
+        toggle.addEventListener('change', () => {
+            const isDark = toggle.checked;
+            document.body.classList.toggle('dark-mode', isDark);
+            localStorage.setItem('darkMode', isDark);
+        });
+    </script>
+
+    <div class="container">
+        <h1>Explore Your GitHub Projects</h1>
+        <p style="color: var(--muted); font-size: 1.1rem;">
+            Select one of your repositories below to see its commit history and file changes.
+        </p>
+
+        <div class="repo-list">
+            {% for repo in repos %}
+                <a class="repo-button" href="/repo/{{ repo.name }}">{{ repo.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

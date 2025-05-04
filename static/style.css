@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+.navbar {
+    background-color: var(--card);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.navbar .logo {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.navbar .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.navbar .toggle-switch {
+    position: static;
+    margin: 0;
+}
+
+:root {
+    --bg: #f9fafb;
+    --text: #1f2937;
+    --card: #ffffff;
+    --muted: #6b7280;
+    --button: #2563eb;
+    --button-hover: #1e40af;
+    --code-bg: #f3f4f6;
+}
+
+.dark-mode {
+    --bg: #1f2937;
+    --text: #f9fafb;
+    --card: #374151;
+    --muted: #d1d5db;
+    --button: #3b82f6;
+    --button-hover: #60a5fa;
+    --code-bg: #111827;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+    transition: background 0.3s, color 0.3s;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    color: var(--text);
+}
+
+a {
+    color: var(--button);
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+.repo-list, .commit-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+}
+
+.repo-button {
+    background-color: var(--button);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.3s, transform 0.2s;
+}
+.repo-button:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+}
+
+.commit, .file-changed {
+    background-color: var(--card);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.commit strong, .file-changed h3 {
+    color: var(--text);
+}
+
+.commit small, .file-changed p {
+    color: var(--muted);
+}
+
+pre {
+    background-color: var(--code-bg);
+    color: var(--text);
+    padding: 12px;
+    border-radius: 6px;
+    white-space: pre-wrap;
+    overflow-x: auto;
+    font-family: monospace;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--button);
+    font-weight: 500;
+}
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.toggle-switch {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+pre.diff {
+    background-color: var(--code-bg);
+    padding: 12px;
+    border-radius: 6px;
+    white-space: pre-wrap;
+    overflow-x: auto;
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.diff-add {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.diff-remove {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.diff-context {
+    background-color: transparent;
+    color: var(--text);
+}

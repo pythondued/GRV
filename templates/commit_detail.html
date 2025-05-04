@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Commit Details</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="navbar">
+        <a class="logo" href="/">📁 GitHub Viewer</a>
+        <div class="nav-actions">
+            <label class="toggle-switch">
+                <input type="checkbox" id="themeToggle"> 🌙
+            </label>
+        </div>
+    </div>
+    <script>
+        const toggle = document.getElementById('themeToggle');
+        const darkSetting = localStorage.getItem('darkMode');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+        if (darkSetting === 'true' || (darkSetting === null && prefersDark)) {
+            document.body.classList.add('dark-mode');
+            toggle.checked = true;
+        }
+    
+        toggle.addEventListener('change', () => {
+            const isDark = toggle.checked;
+            document.body.classList.toggle('dark-mode', isDark);
+            localStorage.setItem('darkMode', isDark);
+        });
+    </script>
+
+    <div class="container">
+        <h1>Commit in {{ repo }}</h1>
+        <p><strong>Message:</strong> {{ commit.commit.message }}</p>
+        <p><strong>Author:</strong> {{ commit.commit.author.name }}</p>
+        <p><strong>Date:</strong> {{ commit.commit.author.date[:10] }}</p>
+
+        <h2>Changed Files</h2>
+        {% for file in commit.files %}
+            <div class="file-changed">
+                <h3>{{ file.filename }}</h3>
+                <p><strong>Changes:</strong> +{{ file.additions }} / -{{ file.deletions }}</p>
+                {% if file.patch %}
+                    <pre class="diff">
+{% for line in file.patch.splitlines() %}
+<span class="{% if line.startswith('+') and not line.startswith('+++') %}diff-add{% elif line.startswith('-') and not line.startswith('---') %}diff-remove{% else %}diff-context{% endif %}">{{ line }}</span>
+{% endfor %}
+                    </pre>
+                {% else %}
+                    <p><em>No diff available.</em></p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <a class="back-link" href="/repo/{{ repo }}">← Back to commits</a>
+    </div>
+</body>
+</html>

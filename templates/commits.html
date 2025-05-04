@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Commits for {{ repo }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="navbar">
+        <a class="logo" href="/">📁 GitHub Viewer</a>
+        <div class="nav-actions">
+            <label class="toggle-switch">
+                <input type="checkbox" id="themeToggle"> 🌙
+            </label>
+        </div>
+    </div>
+    <script>
+        const toggle = document.getElementById('themeToggle');
+        const darkSetting = localStorage.getItem('darkMode');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+        if (darkSetting === 'true' || (darkSetting === null && prefersDark)) {
+            document.body.classList.add('dark-mode');
+            toggle.checked = true;
+        }
+    
+        toggle.addEventListener('change', () => {
+            const isDark = toggle.checked;
+            document.body.classList.toggle('dark-mode', isDark);
+            localStorage.setItem('darkMode', isDark);
+        });
+    </script>
+
+    <div class="container">
+        <h1>Commits for {{ repo }}</h1>
+        {% for commit in commits %}
+            <div class="commit">
+                <strong>
+                    <a href="/repo/{{ repo }}/commit/{{ commit.sha }}">
+                        {{ commit.commit.message }}
+                    </a>
+                </strong>
+                <small>By {{ commit.commit.author.name }} on {{ commit.commit.author.date[:10] }}</small>
+            </div>
+        {% endfor %}
+        <a class="back-link" href="/">← Back to Repositories</a>
+    </div>
+</body>
+</html>
